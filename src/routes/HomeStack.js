@@ -12,7 +12,7 @@ const HomeStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={screenNames.Home}
-      screenOptions={{ headerTransparent: true, headerBackTitle: 'Voltar' }}>
+      screenOptions={{ headerBackTitle: 'Voltar' }}>
       <Stack.Screen
         name={screenNames.Home}
         component={Home}

@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+
+import { Container, ClockContainer, ContactsList } from './styles';
 import Clock from './Clock';
-import {
-  SafeAreaView,
-  Container,
-  ClockContainer,
-  ContactsList,
-} from './styles';
 import ContactSubjects from './ContactSubjects';
 import { View } from 'react-native';
 
@@ -188,13 +184,9 @@ const Home = () => {
     <Container>
       <ContactsList
         ListHeaderComponent={() => (
-          <>
-            <View style={{ height: 20 }} />
-            <ClockContainer>
-              <Clock />
-            </ClockContainer>
-            <View style={{ height: 30 }} />
-          </>
+          <ClockContainer style={{ marginTop: 20, marginBottom: 20 }}>
+            <Clock />
+          </ClockContainer>
         )}
         data={contactsSubjectsData}
         renderItem={({ item }) => <ContactSubjects data={item} />}

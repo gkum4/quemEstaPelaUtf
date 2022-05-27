@@ -2,9 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import HomeStack from './HomeStack';
+import PersonalTimetableStack from './PersonalTimetableStack';
 import screenNames from './screensNames';
-import Home from '../screens/Home';
-import PersonalTimetable from '../screens/PersonalTimetable';
 import TabBarIcon from './TabBarIcon';
 import Colors from '../Styles/Colors';
 
@@ -14,10 +14,13 @@ const FooterNavigator = () => {
   return (
     <Footer.Navigator
       initialRouteName={screenNames.Home}
-      screenOptions={{ tabBarActiveTintColor: Colors.orange }}>
+      screenOptions={{
+        tabBarActiveTintColor: Colors.orange,
+        header: () => null,
+      }}>
       <Footer.Screen
-        name={screenNames.Home}
-        component={Home}
+        name={screenNames.HomeStack}
+        component={HomeStack}
         options={{
           title: 'Quem está pela UTF',
           tabBarIcon: ({ color, size }) => (
@@ -26,10 +29,10 @@ const FooterNavigator = () => {
         }}
       />
       <Footer.Screen
-        name={screenNames.PersonalTimetable}
-        component={PersonalTimetable}
+        name={screenNames.PersonalTimetableStack}
+        component={PersonalTimetableStack}
         options={{
-          title: 'Grade pessoal',
+          title: 'Sua grade',
           tabBarIcon: ({ color, size }) => (
             <Icon name="person" color={color} size={size} />
           ),

@@ -7,7 +7,9 @@ const screenNames = {
   PersonalTimetable: 'PersonalTimetable',
   SignUp: 'SignUp',
   HomeStack: 'HomeStack',
+  PersonalTimetableStack: 'PersonalTimetableStack',
   FooterNavigator: 'FooterNavigator',
+  EditTimetable: 'EditTimetable',
 };
 
 export default screenNames;
