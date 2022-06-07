@@ -6,6 +6,7 @@ import Home from '../screens/Home';
 import PersonalTimetable from '../screens/PersonalTimetable';
 import screenNames from './screensNames';
 import HeaderBackButton from './HeaderBackButton';
+import SomeoneTimetable from '../screens/SomeoneTimetable';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,9 +26,9 @@ const HomeStack = () => {
         options={{ title: 'Adicionar grade' }}
       />
       <Stack.Screen
-        name={screenNames.PersonalTimetable}
-        component={PersonalTimetable}
-        options={{ title: 'Sua grade' }}
+        name={screenNames.SomeoneTimetable}
+        component={SomeoneTimetable}
+        options={{ title: 'Grade de ...' }}
       />
     </Stack.Navigator>
   );

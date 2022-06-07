@@ -10,6 +10,7 @@ const screenNames = {
   PersonalTimetableStack: 'PersonalTimetableStack',
   FooterNavigator: 'FooterNavigator',
   EditTimetable: 'EditTimetable',
+  SomeoneTimetable: 'SomeoneTimetable',
 };
 
 export default screenNames;
