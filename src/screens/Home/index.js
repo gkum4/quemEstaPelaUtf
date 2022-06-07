@@ -1,184 +1,285 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Container, ClockContainer, ContactsList } from './styles';
+import screensNames from '../../routes/screensNames';
 import Clock from './Clock';
 import ContactSubjects from './ContactSubjects';
-import { View } from 'react-native';
+import filterUsersSubjects from './filterUsersSubjects';
+import { Container, ClockContainer, ContactsList } from './styles';
+
+const contactsSubjectsDataExample = [
+  {
+    username: 'varejas',
+    2: {
+      subjects: [
+        // {
+        //   name: 'Cálculo 1',
+        //   code: 'ELP21',
+        //   class: 'S11',
+        //   locationCode: 'CQ201',
+        //   timeStartCode: 'T1',
+        //   timeEndCode: 'T4',
+        // },
+        // {
+        //   name: 'Cálculo 1',
+        //   code: 'ELP21',
+        //   class: 'S11',
+        //   locationCode: 'CQ201',
+        //   timeStartCode: 'T1',
+        //   timeEndCode: 'T4',
+        // },
+      ],
+    },
+    3: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    4: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    5: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    6: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    7: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+  },
+  {
+    username: 'varejas',
+    2: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    3: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    4: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    5: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    6: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+    7: {
+      subjects: [
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+        {
+          name: 'Cálculo 1',
+          code: 'ELP21',
+          class: 'S11',
+          locationCode: 'CQ201',
+          timeStartCode: 'T1',
+          timeEndCode: 'T4',
+        },
+      ],
+    },
+  },
+];
 
 const Home = () => {
+  const [usersData, setUsersData] = useState([]);
+  const [filteredUsersData, setFilteredUsersData] = useState([]);
+
   const navigation = useNavigation();
 
-  const contactsSubjectsData = [
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
+  useEffect(() => {
+    const data = contactsSubjectsDataExample; // TODO: get users data
+    setUsersData(data);
+
+    const date = new Date();
+
+    setFilteredUsersData(filterUsersSubjects(data, `${date.getDay() + 1}`));
+  }, []);
+
+  const handleSeeUserTimetable = useCallback(
+    username => {
+      const userData = usersData.find(item => item.username === username);
+
+      navigation.navigate(screensNames.SomeoneTimetable, userData);
     },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    {
-      username: 'varejas',
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-  ];
+    [navigation, usersData],
+  );
 
   return (
     <Container>
@@ -188,8 +289,13 @@ const Home = () => {
             <Clock />
           </ClockContainer>
         )}
-        data={contactsSubjectsData}
-        renderItem={({ item }) => <ContactSubjects data={item} />}
+        data={filteredUsersData}
+        renderItem={({ item }) => (
+          <ContactSubjects
+            data={item}
+            handleSeeUserTimetable={() => handleSeeUserTimetable(item.username)}
+          />
+        )}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         keyExtractor={(_, index) => index}
         ListFooterComponent={() => <View style={{ height: 20 }} />}
