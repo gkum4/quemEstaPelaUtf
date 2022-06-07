@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import Subject from '../../../Components/Subject';
-import { Container, UsernameButton, UsernameText } from './styles';
+import { Container, UsernameButton, UsernameText, EmptyText } from './styles';
 
 /*
 const contactSubjectsDataExample = {
@@ -27,10 +27,10 @@ const contactSubjectsDataExample = {
 }
 */
 
-const ContactSubjects = ({ data }) => {
+const ContactSubjects = ({ data, handleSeeUserTimetable }) => {
   return (
     <Container>
-      <UsernameButton>
+      <UsernameButton onPress={handleSeeUserTimetable}>
         <UsernameText>{data.username}</UsernameText>
       </UsernameButton>
 
@@ -40,6 +40,7 @@ const ContactSubjects = ({ data }) => {
         renderItem={({ item }) => <Subject data={item} />}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
         keyExtractor={(_, index) => index}
+        ListEmptyComponent={() => <EmptyText>Sem aulas hoje</EmptyText>}
       />
     </Container>
   );

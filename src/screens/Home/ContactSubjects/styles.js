@@ -13,3 +13,7 @@ export const UsernameText = styled.Text`
   font-weight: 500;
   color: ${Colors.orange};
 `;
+
+export const EmptyText = styled.Text`
+  font-size: 14px;
+`;
