@@ -25,3 +25,7 @@ export const DayOfTheWeekText = styled.Text`
 `;
 
 export const EditButton = styled.TouchableOpacity``;
+
+export const EmptyText = styled.Text`
+  font-size: 14px;
+`;

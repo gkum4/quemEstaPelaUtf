@@ -1,13 +1,11 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import daysOfTheWeek from '../../../Utils/daysOfTheWeek';
-import screenNames from '../../../routes/screensNames';
-import Subject from '../../../Components/Subject';
-import { Container, TopView, DayOfTheWeekText, EditButton } from './styles';
-import Colors from '../../../Styles/Colors';
+import daysOfTheWeek from '../../Utils/daysOfTheWeek';
+import Subject from '../Subject';
+import { Container, TopView, DayOfTheWeekText, EditButton, EmptyText } from './styles';
+import Colors from '../../Styles/Colors';
 
 // const dayDataExample = {
 //   subjects: [
@@ -30,20 +28,17 @@ import Colors from '../../../Styles/Colors';
 //   ],
 // };
 
-const DayOfTheWeek = ({ dayNumber = 0, dayData, ...rest }) => {
-  const navigation = useNavigation();
-
+const SubjectsOfTheDay = ({
+  dayNumber = 0,
+  dayData,
+  canEdit = false,
+  handleEdit = () => {},
+  ...rest
+}) => {
   const isToday = useMemo(() => {
     let date = new Date();
     return dayNumber === date.getDay() + 1;
   }, [dayNumber]);
-
-  const handleEdit = useCallback(() => {
-    navigation.navigate(screenNames.EditTimetable, {
-      subjects: dayData.subjects,
-      dayNumber: dayNumber,
-    });
-  }, [dayNumber, dayData, navigation]);
 
   return (
     <Container {...rest}>
@@ -53,12 +48,16 @@ const DayOfTheWeek = ({ dayNumber = 0, dayData, ...rest }) => {
           {daysOfTheWeek[dayNumber]} [{dayNumber}]
         </DayOfTheWeekText>
 
-        <EditButton onPress={handleEdit}>
-          <Icon name="pencil" color={Colors.orange} size={18} />
-        </EditButton>
+        {canEdit && (
+          <EditButton onPress={handleEdit}>
+            <Icon name="pencil" color={Colors.orange} size={18} />
+          </EditButton>
+        )}
       </TopView>
 
       <View style={{ height: 5 }} />
+
+      {dayData.subjects.length === 0 && <EmptyText>-</EmptyText>}
 
       {dayData.subjects.map((item, index) => (
         <Subject key={index} data={item} style={{ marginBottom: 10 }} />
@@ -67,4 +66,4 @@ const DayOfTheWeek = ({ dayNumber = 0, dayData, ...rest }) => {
   );
 };
 
-export default DayOfTheWeek;
+export default SubjectsOfTheDay;
