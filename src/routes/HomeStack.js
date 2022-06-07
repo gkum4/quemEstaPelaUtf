@@ -5,6 +5,7 @@ import AddTimetable from '../screens/AddTimetable';
 import Home from '../screens/Home';
 import PersonalTimetable from '../screens/PersonalTimetable';
 import screenNames from './screensNames';
+import HeaderBackButton from './HeaderBackButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,11 +13,11 @@ const HomeStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={screenNames.Home}
-      screenOptions={{ headerBackTitle: 'Voltar' }}>
+      screenOptions={{ headerLeft: () => <HeaderBackButton /> }}>
       <Stack.Screen
         name={screenNames.Home}
         component={Home}
-        options={{ title: 'Quem está pela UTF', headerBackVisible: false }}
+        options={{ title: 'Quem está pela UTF', headerLeft: null }}
       />
       <Stack.Screen
         name={screenNames.AddTimetable}

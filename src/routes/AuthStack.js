@@ -6,6 +6,7 @@ import PasswordRecovery from '../screens/PasswordRecovery';
 import SignUp from '../screens/SignUp';
 import screenNames from './screensNames';
 import FooterNavigator from './FooterNavigator';
+import HeaderBackButton from './HeaderBackButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,11 +14,11 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={screenNames.LogIn}
-      screenOptions={{ headerBackTitle: 'Voltar' }}>
+      screenOptions={{ headerLeft: () => <HeaderBackButton /> }}>
       <Stack.Screen
         name={screenNames.LogIn}
         component={LogIn}
-        options={{ title: 'Quem está pela UTF' }}
+        options={{ title: 'Quem está pela UTF', headerLeft: null }}
       />
       <Stack.Screen
         name={screenNames.PasswordRecovery}
