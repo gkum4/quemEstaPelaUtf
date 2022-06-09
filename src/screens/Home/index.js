@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import screensNames from '../../routes/screensNames';
 import Clock from './Clock';
 import ContactSubjects from './ContactSubjects';
 import filterUsersSubjects from './filterUsersSubjects';
+import orderUsers from './orderUsers';
 import { Container, ClockContainer, ContactsList } from './styles';
 
 const contactsSubjectsDataExample = [
   {
-    username: 'varejas',
+    username: 'kuma',
     2: {
       subjects: [
         // {
@@ -33,22 +34,22 @@ const contactsSubjectsDataExample = [
     },
     3: {
       subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
+        // {
+        //   name: 'Cálculo 1',
+        //   code: 'ELP21',
+        //   class: 'S11',
+        //   locationCode: 'CQ201',
+        //   timeStartCode: 'T1',
+        //   timeEndCode: 'T4',
+        // },
+        // {
+        //   name: 'Cálculo 1',
+        //   code: 'ELP21',
+        //   class: 'S11',
+        //   locationCode: 'CQ201',
+        //   timeStartCode: 'T1',
+        //   timeEndCode: 'T4',
+        // },
       ],
     },
     4: {
@@ -263,14 +264,20 @@ const Home = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const data = contactsSubjectsDataExample; // TODO: get users data
-    setUsersData(data);
+  useFocusEffect(
+    useCallback(() => {
+      const data = contactsSubjectsDataExample; // TODO: API GET users data
+      setUsersData(data);
 
-    const date = new Date();
+      const date = new Date();
+      const orderedUsers = orderUsers(data, `${date.getDay() + 1}`);
+      const filteredUsersSubjects = filterUsersSubjects(orderedUsers, `${date.getDay() + 1}`);
 
-    setFilteredUsersData(filterUsersSubjects(data, `${date.getDay() + 1}`));
-  }, []);
+      setFilteredUsersData(filteredUsersSubjects);
+
+      return;
+    }, []),
+  );
 
   const handleSeeUserTimetable = useCallback(
     username => {

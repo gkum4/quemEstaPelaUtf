@@ -58,8 +58,7 @@ const Clock = () => {
   return (
     <Container>
       <TimeText>
-        {hours < 10 ? `0${hours}` : hours}:
-        {minutes < 10 ? `0${minutes}` : minutes}
+        {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}
       </TimeText>
       <DateText>
         {dayOfTheWeek}, {day} de {month}
