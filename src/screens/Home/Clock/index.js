@@ -37,14 +37,14 @@ const Clock = () => {
   useEffect(() => {
     const update = () => {
       const currentDate = new Date();
-      const currentHours = currentDate.getHours().toString();
-      const currentMinutes = currentDate.getMinutes().toString();
+      const currentHours = currentDate.getHours();
+      const currentMinutes = currentDate.getMinutes();
       const currentDayOfTheWeek = daysOfTheWeek[currentDate.getDay()];
       const currentDay = currentDate.getDate().toString();
       const currentMonth = monthsNames[currentDate.getMonth()];
 
-      setHours(currentHours === '0' ? '00' : currentHours);
-      setMinutes(currentMinutes === '0' ? '00' : currentMinutes);
+      setHours(currentHours < 10 ? `0${currentHours}` : `${currentHours}`);
+      setMinutes(currentMinutes < 10 ? `0${currentMinutes}` : `${currentMinutes}`);
       setDayOfTheWeek(currentDayOfTheWeek);
       setDay(currentDay);
       setMonth(currentMonth);
@@ -58,7 +58,7 @@ const Clock = () => {
   return (
     <Container>
       <TimeText>
-        {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}
+        {hours}:{minutes}
       </TimeText>
       <DateText>
         {dayOfTheWeek}, {day} de {month}
