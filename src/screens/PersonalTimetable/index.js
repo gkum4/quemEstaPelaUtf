@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import screenNames from '../../routes/screensNames';
 import SubjectsOfTheDay from '../../Components/SubjectsOfTheDay';
 import { Container } from './styles';
+import { useEffect } from 'react';
+import ShareTimetableButton from './ShareTimetableButton';
 
 const daysData = {
   2: {
@@ -130,6 +132,16 @@ const daysData = {
 
 const PersonalTimetable = () => {
   const navigation = useNavigation();
+
+  const handleShareTimetable = useCallback(() => {
+    // TODO: share timetable
+  }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <ShareTimetableButton onPress={handleShareTimetable} />,
+    });
+  }, [navigation, handleShareTimetable]);
 
   const handleEdit = useCallback(
     (dayData, dayNumber) => {
