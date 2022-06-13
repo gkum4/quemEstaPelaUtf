@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import HomeStack from './HomeStack';
 import PersonalTimetableStack from './PersonalTimetableStack';
 import screenNames from './screensNames';
-import TabBarIcon from './TabBarIcon';
 import Colors from '../Styles/Colors';
 
 const Footer = createBottomTabNavigator();
@@ -23,9 +22,7 @@ const FooterNavigator = () => {
         component={HomeStack}
         options={{
           title: 'Quem está pela UTF',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home-sharp" color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Icon name="home-sharp" color={color} size={size} />,
         }}
       />
       <Footer.Screen
@@ -33,9 +30,7 @@ const FooterNavigator = () => {
         component={PersonalTimetableStack}
         options={{
           title: 'Sua grade',
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="person" color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <Icon name="person" color={color} size={size} />,
         }}
       />
     </Footer.Navigator>

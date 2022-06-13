@@ -7,6 +7,7 @@ import SignUp from '../screens/SignUp';
 import screenNames from './screensNames';
 import FooterNavigator from './FooterNavigator';
 import HeaderBackButton from './HeaderBackButton';
+import AdminStack from './AdminStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,9 +32,14 @@ const AuthStack = () => {
         options={{ title: 'Criar conta' }}
       />
       <Stack.Screen
+        name={screenNames.AdminStack}
+        component={AdminStack}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name={screenNames.FooterNavigator}
         component={FooterNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, gestureEnabled: false }}
       />
     </Stack.Navigator>
   );

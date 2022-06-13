@@ -8,6 +8,7 @@ const screenNames = {
   SignUp: 'SignUp',
   HomeStack: 'HomeStack',
   PersonalTimetableStack: 'PersonalTimetableStack',
+  AdminStack: 'AdminStack',
   FooterNavigator: 'FooterNavigator',
   EditTimetable: 'EditTimetable',
   SomeoneTimetable: 'SomeoneTimetable',
