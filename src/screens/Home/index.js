@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 import screensNames from '../../routes/screensNames';
@@ -8,6 +8,7 @@ import ContactSubjects from './ContactSubjects';
 import filterUsersSubjects from './filterUsersSubjects';
 import orderUsers from './orderUsers';
 import { Container, ClockContainer, ContactsList } from './styles';
+import LogOutButton from './LogOutButton';
 
 const contactsSubjectsDataExample = [
   {
@@ -263,6 +264,33 @@ const Home = () => {
   const [filteredUsersData, setFilteredUsersData] = useState([]);
 
   const navigation = useNavigation();
+
+  const handleLogOut = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+
+      Alert.alert('Sair', 'Tem certeza que deseja sair?', [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: () => {},
+        },
+        {
+          text: 'Sair',
+          style: 'destructive',
+          onPress: () => navigation.dispatch(e.data.action),
+        },
+      ]);
+    });
+
+    navigation.setOptions({
+      headerLeft: () => <LogOutButton onPress={handleLogOut} />,
+    });
+  }, [handleLogOut, navigation]);
 
   useFocusEffect(
     useCallback(() => {
