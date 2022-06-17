@@ -7,257 +7,10 @@ import Clock from './Clock';
 import ContactSubjects from './ContactSubjects';
 import filterUsersSubjects from './filterUsersSubjects';
 import orderUsers from './orderUsers';
-import { Container, ClockContainer, ContactsList } from './styles';
 import LogOutButton from './LogOutButton';
-
-const contactsSubjectsDataExample = [
-  {
-    username: 'kuma',
-    2: {
-      subjects: [
-        // {
-        //   name: 'Cálculo 1',
-        //   code: 'ELP21',
-        //   class: 'S11',
-        //   locationCode: 'CQ201',
-        //   timeStartCode: 'T1',
-        //   timeEndCode: 'T4',
-        // },
-        // {
-        //   name: 'Cálculo 1',
-        //   code: 'ELP21',
-        //   class: 'S11',
-        //   locationCode: 'CQ201',
-        //   timeStartCode: 'T1',
-        //   timeEndCode: 'T4',
-        // },
-      ],
-    },
-    3: {
-      subjects: [
-        // {
-        //   name: 'Cálculo 1',
-        //   code: 'ELP21',
-        //   class: 'S11',
-        //   locationCode: 'CQ201',
-        //   timeStartCode: 'T1',
-        //   timeEndCode: 'T4',
-        // },
-        // {
-        //   name: 'Cálculo 1',
-        //   code: 'ELP21',
-        //   class: 'S11',
-        //   locationCode: 'CQ201',
-        //   timeStartCode: 'T1',
-        //   timeEndCode: 'T4',
-        // },
-      ],
-    },
-    4: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    5: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    6: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    7: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-  },
-  {
-    username: 'varejas',
-    2: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    3: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    4: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    5: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    6: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-    7: {
-      subjects: [
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-        {
-          name: 'Cálculo 1',
-          code: 'ELP21',
-          class: 'S11',
-          locationCode: 'CQ201',
-          timeStartCode: 'T1',
-          timeEndCode: 'T4',
-        },
-      ],
-    },
-  },
-];
+import { useAuth } from '../../hooks/auth';
+import { Container, ClockContainer, ContactsList, EmptyListText } from './styles';
+import api from '../../services/api';
 
 const Home = () => {
   const [usersData, setUsersData] = useState([]);
@@ -265,11 +18,17 @@ const Home = () => {
 
   const navigation = useNavigation();
 
-  const handleLogOut = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
+  const { signOut } = useAuth();
+
+  const handleLogOut = useCallback(async () => {
+    await signOut();
+  }, [signOut]);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <LogOutButton onPress={handleLogOut} />,
+    });
+
     navigation.addListener('beforeRemove', e => {
       e.preventDefault();
 
@@ -286,34 +45,40 @@ const Home = () => {
         },
       ]);
     });
-
-    navigation.setOptions({
-      headerLeft: () => <LogOutButton onPress={handleLogOut} />,
-    });
   }, [handleLogOut, navigation]);
 
   useFocusEffect(
     useCallback(() => {
-      const data = contactsSubjectsDataExample; // TODO: API GET users data
-      setUsersData(data);
+      const getData = async () => {
+        let data;
 
-      const date = new Date();
-      const orderedUsers = orderUsers(data, `${date.getDay() + 1}`);
-      const filteredUsersSubjects = filterUsersSubjects(orderedUsers, `${date.getDay() + 1}`);
+        try {
+          const response = await api.get('user/close-users');
 
-      setFilteredUsersData(filteredUsersSubjects);
+          data = response.data.connections;
+        } catch (error) {
+          return;
+        }
+
+        setUsersData(data);
+
+        const date = new Date();
+        const orderedUsers = orderUsers(data, `${date.getDay() + 1}`);
+        const filteredUsersSubjects = filterUsersSubjects(orderedUsers, `${date.getDay() + 1}`);
+        setFilteredUsersData(filteredUsersSubjects);
+      };
+
+      getData();
 
       return;
     }, []),
   );
 
   const handleSeeUserTimetable = useCallback(
-    username => {
-      const userData = usersData.find(item => item.username === username);
-
-      navigation.navigate(screensNames.SomeoneTimetable, userData);
+    _id => {
+      navigation.navigate(screensNames.SomeoneTimetable, { _id });
     },
-    [navigation, usersData],
+    [navigation],
   );
 
   return (
@@ -328,12 +93,13 @@ const Home = () => {
         renderItem={({ item }) => (
           <ContactSubjects
             data={item}
-            handleSeeUserTimetable={() => handleSeeUserTimetable(item.username)}
+            handleSeeUserTimetable={() => handleSeeUserTimetable(item._id)}
           />
         )}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
         keyExtractor={(_, index) => index}
         ListFooterComponent={() => <View style={{ height: 20 }} />}
+        ListEmptyComponent={() => <EmptyListText>Sem usuários cadastrados</EmptyListText>}
       />
     </Container>
   );

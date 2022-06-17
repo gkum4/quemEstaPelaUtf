@@ -7,17 +7,20 @@ const TextField = ({
   onValueChange = () => {},
   style = {},
   secureTextEntry = false,
+  ...rest
 }) => {
   return (
     <Container style={style}>
       <TextInputContainer>
         <TextInput
-          keyboardType="email-address"
           placeholder={placeholder}
           placeholderTextColor="#707070"
           value={value}
           onChangeText={onValueChange}
           secureTextEntry={secureTextEntry}
+          autoCapitalize="none"
+          autoCorrect={false}
+          {...rest}
         />
       </TextInputContainer>
     </Container>

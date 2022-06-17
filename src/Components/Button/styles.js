@@ -7,6 +7,7 @@ export const Container = styled.TouchableOpacity`
   border-radius: 20px;
   width: 100%;
   background-color: ${({ color }) => color};
+  padding: 17px;
 
   ${({ isDisabled }) =>
     isDisabled &&
@@ -18,5 +19,4 @@ export const Container = styled.TouchableOpacity`
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
-  padding: 17px;
 `;

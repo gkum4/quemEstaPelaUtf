@@ -16,8 +16,7 @@ const subjectDataExample = {
 
 const Subject = ({ data, ...rest }) => {
   const timeInterval = useMemo(() => {
-    let start =
-      subjectTimeCodes[data.timeStartCode].start + ' ' + data.timeStartCode;
+    let start = subjectTimeCodes[data.timeStartCode].start + ' ' + data.timeStartCode;
     let end = subjectTimeCodes[data.timeEndCode].start + ' ' + data.timeEndCode;
 
     return `${start} - ${end}`;
@@ -27,7 +26,7 @@ const Subject = ({ data, ...rest }) => {
     <Container {...rest}>
       <Line>
         <Text>
-          Aula de {data.name} {`(${data.code}-${data.class})`}
+          {data.name} {`(${data.code}-${data.class})`}
         </Text>
         <Text>{data.locationCode}</Text>
       </Line>
