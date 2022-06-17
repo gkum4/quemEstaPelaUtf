@@ -1,35 +1,31 @@
+const allTimeCodes = [
+  'M1',
+  'M2',
+  'M3',
+  'M4',
+  'M5',
+  'M6',
+  'T1',
+  'T2',
+  'T3',
+  'T4',
+  'T5',
+  'T6',
+  'N1',
+  'N2',
+  'N3',
+  'N4',
+  'N5',
+];
+
 const checkIfTimeCodeIsValid = (timeCode = 'M1') => {
-  if (timeCode.length !== 2) {
+  const found = allTimeCodes.find(item => item === timeCode);
+
+  if (!found) {
     return false;
   }
 
-  const firstChar = timeCode.charAt(0);
-  const secondChar = timeCode.charAt(1);
-  const number = parseInt(secondChar);
-
-  if (isNaN(number)) {
-    return false;
-  }
-
-  switch (firstChar) {
-    case 'M':
-      if (number >= 1 && number <= 6) {
-        return true;
-      }
-      break;
-    case 'T':
-      if (number >= 1 && number <= 6) {
-        return true;
-      }
-      break;
-    case 'N':
-      if (number >= 1 && number <= 5) {
-        return true;
-      }
-      break;
-    default:
-      return false;
-  }
+  return true;
 };
 
 export default checkIfTimeCodeIsValid;
