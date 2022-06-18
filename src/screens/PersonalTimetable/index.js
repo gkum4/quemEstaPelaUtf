@@ -6,7 +6,7 @@ import screenNames from '../../routes/screensNames';
 import SubjectsOfTheDay from '../../Components/SubjectsOfTheDay';
 import ShareTimetableButton from './ShareTimetableButton';
 import { Container } from './styles';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Share } from 'react-native';
 
 const PersonalTimetable = () => {
   const [data, setData] = useState({});
@@ -33,8 +33,10 @@ const PersonalTimetable = () => {
   );
 
   const handleShareTimetable = useCallback(() => {
-    // TODO: share timetable
-  }, []);
+    Share.share({
+      message: 'Este é o meu id do QuemEstaPelaUtf: ' + data._id,
+    });
+  }, [data._id]);
 
   useEffect(() => {
     navigation.setOptions({
