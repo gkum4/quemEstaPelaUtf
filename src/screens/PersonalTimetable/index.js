@@ -34,7 +34,7 @@ const PersonalTimetable = () => {
 
   const handleShareTimetable = useCallback(() => {
     Share.share({
-      message: 'Este é o meu id do QuemEstaPelaUtf: ' + data._id,
+      message: 'Este é o meu código do QuemEstaPelaUtf: ' + data._id,
     });
   }, [data._id]);
 

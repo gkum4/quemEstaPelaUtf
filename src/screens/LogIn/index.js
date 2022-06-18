@@ -16,6 +16,7 @@ import {
   ForgotPasswordButton,
   ForgotPasswordText,
 } from './styles';
+import DismissKeyboardContainer from '../../Components/DismissKeyboardContainer';
 
 const LogIn = () => {
   const [email, setEmail] = useState('');
@@ -95,35 +96,42 @@ const LogIn = () => {
   }, [navigation]);
 
   return (
-    <Container>
-      <TextField placeholder="Email ou Username" value={email} onValueChange={setEmail} />
-      <TextField
-        style={{ marginTop: 20 }}
-        placeholder="Senha"
-        value={password}
-        onValueChange={setPassword}
-        secureTextEntry
-      />
+    <DismissKeyboardContainer>
+      <Container>
+        <TextField placeholder="Email ou Username" value={email} onValueChange={setEmail} />
+        <TextField
+          style={{ marginTop: 20 }}
+          placeholder="Senha"
+          value={password}
+          onValueChange={setPassword}
+          secureTextEntry
+        />
 
-      <Button
-        title="Log In"
-        onPress={isAdmin ? handleAdminLogIn : handleLogIn}
-        style={{ marginTop: 30 }}
-        disabled={!email || !password}
-        loading={isLoading}
-      />
+        <Button
+          title="Log In"
+          onPress={isAdmin ? handleAdminLogIn : handleLogIn}
+          style={{ marginTop: 30 }}
+          disabled={!email || !password}
+          loading={isLoading}
+        />
 
-      <ForgotPasswordButton style={{ marginTop: 20 }} onPress={handleForgotPassword}>
-        <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
-      </ForgotPasswordButton>
+        <ForgotPasswordButton style={{ marginTop: 20 }} onPress={handleForgotPassword}>
+          <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
+        </ForgotPasswordButton>
 
-      <Button title="Criar conta" onPress={handleCreateAccount} isGreen style={{ marginTop: 40 }} />
+        <Button
+          title="Criar conta"
+          onPress={handleCreateAccount}
+          isGreen
+          style={{ marginTop: 40 }}
+        />
 
-      <AdminButtonContainer onPress={() => setIsAdmin(!isAdmin)}>
-        <Icon name={isAdmin ? 'checkmark-circle' : 'ellipse'} size={29} color={Colors.gray} />
-        <AdminButtonText>Admin</AdminButtonText>
-      </AdminButtonContainer>
-    </Container>
+        <AdminButtonContainer onPress={() => setIsAdmin(!isAdmin)}>
+          <Icon name={isAdmin ? 'checkmark-circle' : 'ellipse'} size={29} color={Colors.gray} />
+          <AdminButtonText>Admin</AdminButtonText>
+        </AdminButtonContainer>
+      </Container>
+    </DismissKeyboardContainer>
   );
 };
 

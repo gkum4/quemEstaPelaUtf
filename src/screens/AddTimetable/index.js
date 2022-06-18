@@ -10,6 +10,7 @@ import {
   AddOtherTimetableText,
   Container,
 } from './styles';
+import DismissKeyboardContainer from '../../Components/DismissKeyboardContainer';
 
 const AddTimetable = () => {
   const [userCode, setUserCode] = useState('');
@@ -38,28 +39,30 @@ const AddTimetable = () => {
   }, []);
 
   return (
-    <Container>
-      <TextField placeholder="Código do usuário" value={userCode} onValueChange={setUserCode} />
+    <DismissKeyboardContainer>
+      <Container>
+        <TextField placeholder="Código do usuário" value={userCode} onValueChange={setUserCode} />
 
-      <Button
-        title={addedTimetable ? 'Grade Adicionada' : 'Adicionar Grade'}
-        onPress={handleAddTimetable}
-        style={{ marginTop: 30 }}
-        disabled={addedTimetable}
-        loading={isLoading}
-      />
+        <Button
+          title={addedTimetable ? 'Grade Adicionada' : 'Adicionar Grade'}
+          onPress={handleAddTimetable}
+          style={{ marginTop: 30 }}
+          disabled={addedTimetable}
+          loading={isLoading}
+        />
 
-      {addedTimetable && (
-        <>
-          <AddedTimetableText>
-            Grade de {timetableUsername} foi adicionada com sucesso
-          </AddedTimetableText>
-          <AddOtherTimetableButton onPress={handleAddOtherTimetable} style={{ marginTop: 20 }}>
-            <AddOtherTimetableText>Adicionar outra</AddOtherTimetableText>
-          </AddOtherTimetableButton>
-        </>
-      )}
-    </Container>
+        {addedTimetable && (
+          <>
+            <AddedTimetableText>
+              Grade de {timetableUsername} foi adicionada com sucesso
+            </AddedTimetableText>
+            <AddOtherTimetableButton onPress={handleAddOtherTimetable} style={{ marginTop: 20 }}>
+              <AddOtherTimetableText>Adicionar outra</AddOtherTimetableText>
+            </AddOtherTimetableButton>
+          </>
+        )}
+      </Container>
+    </DismissKeyboardContainer>
   );
 };
 

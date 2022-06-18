@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { Alert } from 'react-native';
 
 import Button from '../../Components/Button';
+import DismissKeyboardContainer from '../../Components/DismissKeyboardContainer';
 import TextField from '../../Components/TextField';
 import api from '../../services/api';
 import checkIfIsAValidEmail from '../../Utils/checkIfIsAValidEmail';
@@ -53,46 +54,48 @@ const SignUp = () => {
   }, [email, username, password, passwordConfirmation]);
 
   return (
-    <Container>
-      <TextField
-        placeholder="Email"
-        value={email}
-        onValueChange={setEmail}
-        keyboardType="email-address"
-      />
+    <DismissKeyboardContainer>
+      <Container>
+        <TextField
+          placeholder="Email"
+          value={email}
+          onValueChange={setEmail}
+          keyboardType="email-address"
+        />
 
-      <TextField
-        placeholder="Username"
-        value={username}
-        onValueChange={setUsername}
-        style={{ marginTop: 20 }}
-      />
+        <TextField
+          placeholder="Username"
+          value={username}
+          onValueChange={setUsername}
+          style={{ marginTop: 20 }}
+        />
 
-      <TextField
-        placeholder="Senha"
-        value={password}
-        onValueChange={setPassword}
-        style={{ marginTop: 20 }}
-        secureTextEntry
-      />
+        <TextField
+          placeholder="Senha"
+          value={password}
+          onValueChange={setPassword}
+          style={{ marginTop: 20 }}
+          secureTextEntry
+        />
 
-      <TextField
-        placeholder="Confirmação de senha"
-        value={passwordConfirmation}
-        onValueChange={setPasswordConfirmation}
-        style={{ marginTop: 20 }}
-        secureTextEntry
-      />
+        <TextField
+          placeholder="Confirmação de senha"
+          value={passwordConfirmation}
+          onValueChange={setPasswordConfirmation}
+          style={{ marginTop: 20 }}
+          secureTextEntry
+        />
 
-      <Button
-        title={createdAccount ? 'Conta Criada' : 'Criar Conta'}
-        isGreen={createdAccount ? false : true}
-        onPress={handleCreateAccount}
-        style={{ marginTop: 30 }}
-        disabled={createdAccount || hasEmptyField}
-        loading={isLoading}
-      />
-    </Container>
+        <Button
+          title={createdAccount ? 'Conta Criada' : 'Criar Conta'}
+          isGreen={createdAccount ? false : true}
+          onPress={handleCreateAccount}
+          style={{ marginTop: 30 }}
+          disabled={createdAccount || hasEmptyField}
+          loading={isLoading}
+        />
+      </Container>
+    </DismissKeyboardContainer>
   );
 };
 
