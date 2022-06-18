@@ -11,9 +11,9 @@ import LogOutButton from './LogOutButton';
 import { useAuth } from '../../hooks/auth';
 import { Container, ClockContainer, ContactsList, EmptyListText } from './styles';
 import api from '../../services/api';
+import AddConnectionButton from './AddConnectionButton';
 
 const Home = () => {
-  const [usersData, setUsersData] = useState([]);
   const [filteredUsersData, setFilteredUsersData] = useState([]);
 
   const navigation = useNavigation();
@@ -21,31 +21,30 @@ const Home = () => {
   const { signOut } = useAuth();
 
   const handleLogOut = useCallback(async () => {
-    await signOut();
+    Alert.alert('Sair', 'Tem certeza que deseja sair?', [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+        onPress: () => {},
+      },
+      {
+        text: 'Sair',
+        style: 'destructive',
+        onPress: async () => await signOut(),
+      },
+    ]);
   }, [signOut]);
+
+  const handleAddSubject = useCallback(() => {
+    navigation.navigate(screensNames.AddTimetable);
+  }, [navigation]);
 
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <LogOutButton onPress={handleLogOut} />,
+      headerRight: () => <AddConnectionButton onPress={handleAddSubject} />,
     });
-
-    navigation.addListener('beforeRemove', e => {
-      e.preventDefault();
-
-      Alert.alert('Sair', 'Tem certeza que deseja sair?', [
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-          onPress: () => {},
-        },
-        {
-          text: 'Sair',
-          style: 'destructive',
-          onPress: () => navigation.dispatch(e.data.action),
-        },
-      ]);
-    });
-  }, [handleLogOut, navigation]);
+  }, [handleLogOut, handleAddSubject, navigation]);
 
   useFocusEffect(
     useCallback(() => {
@@ -59,8 +58,6 @@ const Home = () => {
         } catch (error) {
           return;
         }
-
-        setUsersData(data);
 
         const date = new Date();
         const orderedUsers = orderUsers(data, `${date.getDay() + 1}`);

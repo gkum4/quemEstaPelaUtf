@@ -22,6 +22,7 @@ export const SubjectNameText = styled.Text`
 
 export const SubjectNameTextInput = styled.TextInput.attrs({
   placeholderTextColor: Colors.lightGray,
+  autoCorrect: false,
 })`
   font-size: 18px;
   font-weight: 500;
@@ -41,6 +42,7 @@ export const Text = styled.Text`
 
 export const TextInput = styled.TextInput.attrs({
   placeholderTextColor: Colors.lightGray,
+  autoCorrect: false,
 })`
   font-size: 16px;
   font-weight: 500;

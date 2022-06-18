@@ -15,18 +15,8 @@ import {
   TextInput,
 } from './styles';
 
-// const subjectDataExample = {
-//   name: 'Cálculo 1',
-//   code: 'ELP21',
-//   class: 'S11',
-//   locationCode: 'CQ201',
-//   timeStartCode: 'T1',
-//   timeEndCode: 'T4',
-// };
-
-const EditSubject = ({ data, handleDelete = () => {} }) => {
+const EditSubject = ({ data, index, handleDelete = () => {}, handleEdit = () => {} }) => {
   const [subjectData, setSubjectData] = useState({});
-  const [canDelete, setCanDelete] = useState(false);
 
   useEffect(() => {
     setSubjectData(data);
@@ -39,8 +29,10 @@ const EditSubject = ({ data, handleDelete = () => {} }) => {
       newData[type] = newText;
 
       setSubjectData(newData);
+
+      handleEdit(newData, index);
     },
-    [subjectData],
+    [subjectData, handleEdit, index],
   );
 
   const handleTimeTextChange = useCallback(
@@ -104,7 +96,7 @@ const EditSubject = ({ data, handleDelete = () => {} }) => {
           <SubjectNameTextInput
             placeholder="Código"
             value={subjectData.code ? subjectData.code : ''}
-            onChangeText={text => handleTextChange(text, 'code')}
+            onChangeText={text => handleTextChange(text.toUpperCase(), 'code')}
           />
 
           <SubjectNameText> - </SubjectNameText>
@@ -112,7 +104,7 @@ const EditSubject = ({ data, handleDelete = () => {} }) => {
           <SubjectNameTextInput
             placeholder="Turma"
             value={subjectData.class ? subjectData.class : ''}
-            onChangeText={text => handleTextChange(text, 'class')}
+            onChangeText={text => handleTextChange(text.toUpperCase(), 'class')}
           />
 
           <SubjectNameText>)</SubjectNameText>
@@ -129,7 +121,7 @@ const EditSubject = ({ data, handleDelete = () => {} }) => {
         <TextInput
           placeholder="Sala"
           value={subjectData.locationCode ? subjectData.locationCode : ''}
-          onChangeText={text => handleTextChange(text, 'locationCode')}
+          onChangeText={text => handleTextChange(text.toUpperCase(), 'locationCode')}
         />
       </Row>
 

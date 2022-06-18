@@ -1,137 +1,36 @@
-import React, { useCallback, useMemo } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
+import api from '../../services/api';
 import screenNames from '../../routes/screensNames';
 import SubjectsOfTheDay from '../../Components/SubjectsOfTheDay';
-import { Container } from './styles';
-import { useEffect } from 'react';
 import ShareTimetableButton from './ShareTimetableButton';
-
-const daysData = {
-  2: {
-    subjects: [
-      // {
-      //   name: 'Cálculo 1',
-      //   code: 'ELP21',
-      //   class: 'S11',
-      //   locationCode: 'CQ201',
-      //   timeStartCode: 'T1',
-      //   timeEndCode: 'T4',
-      // },
-      // {
-      //   name: 'Cálculo 1',
-      //   code: 'ELP21',
-      //   class: 'S11',
-      //   locationCode: 'CQ201',
-      //   timeStartCode: 'T1',
-      //   timeEndCode: 'T4',
-      // },
-    ],
-  },
-  3: {
-    subjects: [
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-    ],
-  },
-  4: {
-    subjects: [
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-    ],
-  },
-  5: {
-    subjects: [
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-    ],
-  },
-  6: {
-    subjects: [
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-    ],
-  },
-  7: {
-    subjects: [
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-      {
-        name: 'Cálculo 1',
-        code: 'ELP21',
-        class: 'S11',
-        locationCode: 'CQ201',
-        timeStartCode: 'T1',
-        timeEndCode: 'T4',
-      },
-    ],
-  },
-};
+import { Container } from './styles';
+import { ActivityIndicator } from 'react-native';
 
 const PersonalTimetable = () => {
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      const getData = async () => {
+        try {
+          const response = await api.get('user/timetable');
+          setData(response.data);
+        } catch (_) {
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      getData();
+
+      return;
+    }, []),
+  );
 
   const handleShareTimetable = useCallback(() => {
     // TODO: share timetable
@@ -157,16 +56,22 @@ const PersonalTimetable = () => {
 
   return (
     <Container>
-      {daysNumbers.map(dayNumber => (
-        <SubjectsOfTheDay
-          key={dayNumber}
-          dayData={daysData[dayNumber]}
-          dayNumber={dayNumber}
-          style={{ marginTop: 20 }}
-          canEdit
-          handleEdit={() => handleEdit(daysData[dayNumber], dayNumber)}
-        />
-      ))}
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <>
+          {daysNumbers.map(dayNumber => (
+            <SubjectsOfTheDay
+              key={dayNumber}
+              dayData={data[dayNumber]}
+              dayNumber={dayNumber}
+              style={{ marginTop: 20 }}
+              canEdit
+              handleEdit={() => handleEdit(data[dayNumber], dayNumber)}
+            />
+          ))}
+        </>
+      )}
     </Container>
   );
 };
