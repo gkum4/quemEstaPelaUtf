@@ -6,8 +6,17 @@ import { Container, DeleteButton, DetailsText, Row, UserText } from './styles';
 
 const RegisteredUser = ({ data, handleDelete }) => {
   const formattedCreationDate = useMemo(() => {
-    return '01/01/2000';
-  }, [data.created_at]);
+    const date = new Date(data.createdAt);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    const formattedDay = day < 10 ? '0' + day : `${day}`;
+    const formattedMonth = month < 10 ? '0' + month : `${month}`;
+
+    return formattedDay + '/' + formattedMonth + '/' + year;
+  }, [data.createdAt]);
 
   return (
     <Container>

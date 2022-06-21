@@ -57,8 +57,7 @@ const LogIn = () => {
     }
 
     clearFields();
-    navigation.navigate(screenNames.AdminStack);
-  }, [email, password, navigation, adminLogIn, clearFields]);
+  }, [email, password, adminLogIn, clearFields]);
 
   const handleLogIn = useCallback(async () => {
     setIsLoading(true);
@@ -84,8 +83,7 @@ const LogIn = () => {
     }
 
     clearFields();
-    navigation.navigate(screenNames.FooterNavigator);
-  }, [email, password, navigation, logIn, clearFields]);
+  }, [email, password, logIn, clearFields]);
 
   const handleCreateAccount = useCallback(() => {
     navigation.navigate(screenNames.SignUp);
