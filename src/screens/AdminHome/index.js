@@ -1,7 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState, useCallback, useEffect } from 'react';
-import { ActivityIndicator, Alert, View } from 'react-native';
+import { ActivityIndicator, Alert, View, Share } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
+import generateUsersListHtml from './generateUsersListHtml';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import LogOutButton from './LogOutButton';
@@ -49,7 +51,36 @@ const AdminHome = () => {
     ]);
   }, [signOut]);
 
-  const handleShare = useCallback(() => {}, []);
+  const shareUsersListPdfFile = useCallback(async () => {
+    const usersListPdfFile = await RNHTMLtoPDF.convert({
+      html: generateUsersListHtml(registeredUsers),
+      fileName: 'QuemEstaPelaUtf - Lista de usuários cadastrados no banco de dados',
+      directory: 'Documents',
+    });
+
+    Share.share({
+      url: usersListPdfFile.filePath,
+    });
+  }, [registeredUsers]);
+
+  const handleShare = useCallback(() => {
+    Alert.alert(
+      'Gerar PDF da lista de usuários',
+      'Tem certeza que deseja gerar um PDF com a lista de todos os usuários cadastrados no banco de dados? (Isso pode demorar um pouco).',
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: () => {},
+        },
+        {
+          text: 'Gerar PDF',
+          style: 'default',
+          onPress: shareUsersListPdfFile,
+        },
+      ],
+    );
+  }, [shareUsersListPdfFile]);
 
   useEffect(() => {
     navigation.setOptions({

@@ -113,9 +113,9 @@ const LogIn = () => {
           loading={isLoading}
         />
 
-        <ForgotPasswordButton style={{ marginTop: 20 }} onPress={handleForgotPassword}>
+        {/* <ForgotPasswordButton style={{ marginTop: 20 }} onPress={handleForgotPassword}>
           <ForgotPasswordText>Esqueceu a senha?</ForgotPasswordText>
-        </ForgotPasswordButton>
+        </ForgotPasswordButton> */}
 
         <Button
           title="Criar conta"
